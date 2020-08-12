@@ -34,7 +34,7 @@ __version__ = '2.1.1'
 MANIFEST_CACHE = {}
 
 BUILDING_STATUS = 'building'
-BUILT_STATUS = 'built'
+BUILT_STATUSES = ('done', 'built')
 ERRORS_STATUS = 'errors'
 
 
@@ -77,7 +77,7 @@ def build(path, static_url, debug, timeout, read_retry, static_root):
             )
         )
 
-    if status != BUILT_STATUS:
+    if status not in BUILT_STATUSES:
         raise WebpackManifestStatusError('Unknown webpack manifest status: "{}"'.format(status))
 
     return WebpackManifest(path, data, static_url, static_root)
